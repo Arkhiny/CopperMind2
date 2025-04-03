@@ -38,7 +38,7 @@ function NotePage() {
           />
         );
       })}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

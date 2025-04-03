@@ -14,7 +14,7 @@ const Homepage = () => {
 
     return (
         <div className="homepage-container">
-            <h1>Bem vindo ao CopperMind</h1>
+            <h1 className='Titulo'>Bem vindo ao CopperMind</h1>
             <div className="button-container">
                 <button className="button" onClick={navigateToLogin}>Entrar</button>
                 <button className="button" onClick={navigateToCreateAccount}>Criar conta</button>

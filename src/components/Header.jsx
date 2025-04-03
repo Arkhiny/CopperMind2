@@ -4,7 +4,7 @@ import { FaLightbulb } from "react-icons/fa";
 function Header() {
   return (
     <header className="header">
-      <h1>
+      <h1 className="header-title">
         <FaLightbulb /> 
         CopperMind
       </h1>

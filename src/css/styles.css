@@ -160,7 +160,7 @@ form.create-note button {
 
 /* Mobile styles Homepage */
 @media (max-width: 768px) {
-  h1 {
+  .Titulo {
       font-size: 1.5rem;  /* Increase font size for mobile */
       margin-bottom: 30px;  /* Space between title and buttons */
       text-align: center; /* Center align text */
@@ -169,7 +169,7 @@ form.create-note button {
   .button-container {
       flex-direction: column;  /* Stack buttons vertically on mobile */
       align-items: center;  /* Center buttons on mobile */
-      gap: 15px;
+      
   }
 
   .button {
@@ -178,6 +178,28 @@ form.create-note button {
       width: 100%;  /* Make buttons wider */
       max-width: 300px;  /* Prevent buttons from becoming too large */
   }
+
+  .note {
+    width: 100%; /* Full width on mobile */
+    margin: 10px 0; /* Adjust margin for better spacing */
+  }
+
+  .create-note {
+    width: 100%; /* Full width on mobile */
+    margin: 10px 0; /* Adjust margin for better spacing */
+  }
+
+  .create-note input {
+    width: 90%;  /* Ensure full width on mobile */
+  }
+  .create-note textarea {
+    width: 90%;  /* Ensure full width on mobile */
+  }
+  .note-creator{
+    width: 90%; /* Full width on mobile */
+    margin: 10px 0; /* Adjust margin for better spacing */
+  }
+
 }
 
 /* Form */
@@ -258,3 +280,4 @@ form.create-note button {
 .eyeIcon:hover {
   color: #000; 
 }
+
