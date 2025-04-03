@@ -19,6 +19,8 @@ body {
 
 /* Header styles */
 .header {
+  display: flex;
+  justify-content: space-between; /* Space out the content */
   background-color: #190228; /* Dark background color */
   margin: auto -16px; /* Adjust margin for full-width effect */
   padding: 16px 32px; /* Padding inside the header */
@@ -31,6 +33,43 @@ body {
   font-family: "McLaren", cursive; /* Custom font */
   font-weight: 200; /* Light font weight */
 }
+
+
+.header h1 {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  margin: 0;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Pushes the user-section (name + button) to the right */
+}
+
+.user-name {
+  margin-right: 15px; /* Adds space between the name and the button */
+  font-size: 16px;
+  color: #333;
+}
+
+.logout-btn {
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #f44336; /* Red color for logout button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+
+
 
 /* Footer styles */
 .footer {
@@ -160,10 +199,18 @@ form.create-note button {
 
 /* Mobile styles Homepage */
 @media (max-width: 768px) {
+
+  .header {
+
+
+      padding: 10px; /* Adjust padding for mobile */
+      width: 112%; /* Full width */
+  }
+
   .Titulo {
       font-size: 1.5rem;  /* Increase font size for mobile */
       margin-bottom: 30px;  /* Space between title and buttons */
-      text-align: center; /* Center align text */
+      text-align: left; /* Center align text */
   }
 
   .button-container {
@@ -177,6 +224,7 @@ form.create-note button {
       padding: 15px 30px;  /* Increase button size */
       width: 100%;  /* Make buttons wider */
       max-width: 300px;  /* Prevent buttons from becoming too large */
+      
   }
 
   .note {
@@ -184,20 +232,14 @@ form.create-note button {
     margin: 10px 0; /* Adjust margin for better spacing */
   }
 
-  .create-note {
-    width: 100%; /* Full width on mobile */
-    margin: 10px 0; /* Adjust margin for better spacing */
-  }
-
-  .create-note input {
-    width: 90%;  /* Ensure full width on mobile */
-  }
-  .create-note textarea {
-    width: 90%;  /* Ensure full width on mobile */
-  }
-  .note-creator{
-    width: 90%; /* Full width on mobile */
-    margin: 10px 0; /* Adjust margin for better spacing */
+  form.create-note {
+    position: relative; /* Relative positioning */
+    width: 100%; 
+    margin: 30px auto 20px auto; /* Centered with vertical spacing */
+    background: #fff; /* White background */
+    padding: 15px; /* Padding inside the form */
+    border-radius: 7px; /* Rounded corners */
+    box-shadow: 0 1px 5px rgb(138, 137, 137); /* Shadow effect */
   }
 
 }
@@ -280,4 +322,5 @@ form.create-note button {
 .eyeIcon:hover {
   color: #000; 
 }
+
 

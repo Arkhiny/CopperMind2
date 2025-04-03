@@ -45,7 +45,7 @@ function CreateArea(props) {
           />
         )}
 
-        <textarea
+        <textarea 
           name="content"
           onClick={expand}
           onChange={handleChange}
