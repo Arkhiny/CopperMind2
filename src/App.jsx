@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
-import Wrapper from './components/Wrapper'
+
 
 
 import Homepage from './pages/Homepage'
@@ -19,9 +19,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/note" element={
-          <Wrapper>
+
           <NotePage />
-          </Wrapper>
+
           } />
       </Routes>
     </BrowserRouter>

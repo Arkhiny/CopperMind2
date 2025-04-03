@@ -9,7 +9,7 @@ const Homepage = () => {
     };
 
     const navigateToCreateAccount = () => {
-        window.location.href = '/create-account'; // Redirect to the create account page
+        window.location.href = '/register'; // Redirect to the create account page
     };
 
     return (

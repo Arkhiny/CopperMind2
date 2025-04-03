@@ -201,8 +201,6 @@ form.create-note button {
 @media (max-width: 768px) {
 
   .header {
-
-
       padding: 10px; /* Adjust padding for mobile */
       width: 112%; /* Full width */
   }
@@ -210,7 +208,7 @@ form.create-note button {
   .Titulo {
       font-size: 1.5rem;  /* Increase font size for mobile */
       margin-bottom: 30px;  /* Space between title and buttons */
-      text-align: left; /* Center align text */
+      text-align: center; /* Center align text */
   }
 
   .button-container {
