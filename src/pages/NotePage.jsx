@@ -151,7 +151,7 @@ function NotePage() {
           onDelete={deleteNote}
         />
       ))}
-      <Footer />
+
     </div>
   );
 }
