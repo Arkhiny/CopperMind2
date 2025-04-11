@@ -1,3 +1,4 @@
+// CreateArea.jsx
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 
@@ -11,22 +12,20 @@ function CreateArea(props) {
 
   function handleChange(event) {
     const { name, value } = event.target;
-
-    setNote((prevNote) => {
-      return {
-        ...prevNote,
-        [name]: value,
-      };
-    });
+    setNote((prevNote) => ({
+      ...prevNote,
+      [name]: value,
+    }));
   }
 
+  // When the note is submitted, call the onAdd function and then clear the note state
   function submitNote(event) {
+    event.preventDefault(); // Prevent page reload
     props.onAdd(note);
     setNote({
       title: "",
       content: "",
     });
-    event.preventDefault();
   }
 
   function expand() {
@@ -45,7 +44,7 @@ function CreateArea(props) {
           />
         )}
 
-        <textarea 
+        <textarea
           name="content"
           onClick={expand}
           onChange={handleChange}
@@ -64,4 +63,3 @@ function CreateArea(props) {
 }
 
 export default CreateArea;
-
