@@ -3,16 +3,16 @@ import { FaLightbulb } from "react-icons/fa";
 import supabase from "../helper/supabaseClient";
 
 function Header({ userName }) {
-  // Handle logout
+  // Handle logout: sign out and then redirect to home page ("/")
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    window.location.reload(); // Optional: Reload the page after logout
+    window.location.href = "/"; // Redirect to the home page
   };
 
   return (
     <header className="header">
       <h1 className="header-title">
-        <FaLightbulb /> 
+        <FaLightbulb />
         CopperMind
       </h1>
       {/* User's name and logout button */}

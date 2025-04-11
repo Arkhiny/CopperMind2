@@ -1,41 +1,49 @@
-// NotePage.jsx
-import React, { useState, useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Note from "../components/Note";
-import CreateArea from "../components/CreateArea";
+import React, { useState, useEffect } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Note from '../components/Note';
+import CreateArea from '../components/CreateArea';
 import supabase from "../helper/supabaseClient";
 
 function NotePage() {
   const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
-  // Fetch notes for the authenticated user upon component mount.
+  // Fetch authenticated user and then the user's notes
   useEffect(() => {
-    async function fetchNotes() {
+    async function fetchData() {
       const {
         data: { user },
       } = await supabase.auth.getUser();
+
       if (!user) {
-        console.error("User not logged in.");
+        console.error('User not logged in.');
+        // Optionally, you might redirect to the login page if no user is found.
+        setLoading(false);
         return;
       }
+
+      setUser(user);
+
       const { data, error } = await supabase
-        .from("Notes")
-        .select("*")
-        .eq("user_id", user.id);
+        .from('Notes')
+        .select('*')
+        .eq('user_id', user.id);
 
       if (error) {
-        console.error("Error fetching notes:", error);
+        console.error('Error fetching notes:', error);
       } else {
         setNotes(data);
       }
+      setLoading(false);
     }
-    fetchNotes();
+    fetchData();
   }, []);
 
-  // Optimistic add note
+  // Optimistic add note (as defined previously)
   async function addNote(newNote) {
-    // Create an optimistic note with a temporary ID
+    // Create an optimistic note with a temporary ID.
     const optimisticId = `temp-${Date.now()}`;
     const optimisticNote = {
       id: optimisticId,
@@ -46,23 +54,25 @@ function NotePage() {
     // Update local state immediately
     setNotes((prevNotes) => [...prevNotes, optimisticNote]);
 
-    // Retrieve the authenticated user
+    // Retrieve the authenticated user.
     const {
       data: { user },
     } = await supabase.auth.getUser();
     if (!user) {
       console.error("User not logged in.");
-      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== optimisticId));
+      setNotes((prevNotes) =>
+        prevNotes.filter((note) => note.id !== optimisticId)
+      );
       return;
     }
 
-    // Insert into the DB with the option to return the inserted row
+    // Insert the note into the database.
     const { data, error } = await supabase
       .from("Notes")
       .insert(
         [
           {
-            user_id: user.id, // Must comply with your RLS policy
+            user_id: user.id,
             title: newNote.title,
             content: newNote.content,
           },
@@ -72,19 +82,21 @@ function NotePage() {
 
     if (error) {
       console.error("Error adding note:", error);
-      // Roll back the optimistic note in case of error
-      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== optimisticId));
+      // Roll back the optimistic note on error.
+      setNotes((prevNotes) =>
+        prevNotes.filter((note) => note.id !== optimisticId)
+      );
       return;
     }
 
     if (data && data.length > 0) {
-      // Replace the optimistic note with the note from Supabase
       setNotes((prevNotes) =>
-        prevNotes.map((note) => (note.id === optimisticId ? data[0] : note))
+        prevNotes.map((note) =>
+          note.id === optimisticId ? data[0] : note
+        )
       );
     } else {
       console.error("Insert succeeded but no note was returned. Retrying fetch.");
-      // As a fallback, re-fetch all notes for the user so the UI updates correctly.
       const { data: notesData, error: fetchError } = await supabase
         .from("Notes")
         .select("*")
@@ -97,14 +109,13 @@ function NotePage() {
     }
   }
 
-  // Optimistic delete note
+  // Optimistic delete note (as defined previously)
   async function deleteNote(id) {
-    // Save a backup for rollback if needed
     const backupNote = notes.find((note) => note.id === id);
-    // Remove the note immediately for a fluid feel
-    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+    setNotes((prevNotes) =>
+      prevNotes.filter((note) => note.id !== id)
+    );
 
-    // Try to delete from the database
     const { error } = await supabase
       .from("Notes")
       .delete({ returning: "representation" })
@@ -112,9 +123,19 @@ function NotePage() {
 
     if (error) {
       console.error("Error deleting note:", error);
-      // Roll back if deletion fails
       setNotes((prevNotes) => [...prevNotes, backupNote]);
     }
+  }
+
+  // Show a loading indicator until authentication and note fetching are complete.
+  if (loading) {
+    return (
+      <div>
+        <Header />
+        <p>Loading notes...</p>
+        <Footer />
+      </div>
+    );
   }
 
   return (
